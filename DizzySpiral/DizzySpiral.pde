@@ -10,7 +10,8 @@ float growRadius = 5;
 
 int shapeSize = 80;
 
-boolean colored = true;
+boolean colored = false;
+boolean stroked = false;
 
 
 void setup() {
@@ -19,7 +20,8 @@ void setup() {
 
   cp5 = new ControlP5(this);
   cp5.addSlider("shapeSize").setValue(80).setRange(1, 200);
-  cp5.addToggle("colored").setValue(false).setPosition(10, 50);
+  cp5.addToggle("colored").setValue(false).setPosition(10, 50).setLabel("Color");
+  cp5.addToggle("stroked").setValue(false).setPosition(60, 50).setLabel("Stroke");
 
   colorMode(HSB, 360, 100, 100);
 }
@@ -33,9 +35,12 @@ void draw() {
   float x;
   float y;
 
+  //  color theColor = color(map(noise(angle/(360*TWO_PI)), 0, 1, 0, 360), 100, 100);
+  color theColor = color(map(noise(angle/(360*TWO_PI)), 0, 1, 0, 60), 74, 94);
+
   fill(255);
   if (colored) {
-    fill(map(noise(angle/(360*TWO_PI)), 0, 1, 0, 360), 100, 100);
+    fill(theColor);
   }
   stroke(0);
   strokeWeight(10);
@@ -45,11 +50,11 @@ void draw() {
     y = height/2 + radius * sin(angle);
     pushMatrix();
 
-    if (mousePressed) { 
+    if (stroked) { 
       noFill();
       stroke(255);
       if (colored) {
-        stroke(map(noise(angle/(360*TWO_PI)), 0, 1, 0, 360), 100, 100);
+        stroke(theColor);
       }
     }
     vertex(x, y);
