@@ -2,7 +2,7 @@ import controlP5.*;
 ControlP5 cp5;
 
 float startAngle = 0;
-float angularVelocity = 0.00;
+float angularVelocity = 1.00;
 float angularAcceleration = 0.001;
 
 float startRadius = 5;
@@ -11,7 +11,8 @@ float growRadius = 5;
 int shapeSize = 80;
 
 boolean colored = false;
-boolean stroked = false;
+boolean stroked = true;
+boolean exportFrames = false;
 
 
 void setup() {
@@ -20,8 +21,8 @@ void setup() {
 
   cp5 = new ControlP5(this);
   cp5.addSlider("shapeSize").setValue(80).setRange(1, 200);
-  cp5.addToggle("colored").setValue(false).setPosition(10, 50).setLabel("Color");
-  cp5.addToggle("stroked").setValue(false).setPosition(60, 50).setLabel("Stroke");
+  cp5.addToggle("colored").setValue(colored).setPosition(10, 50).setLabel("Color");
+  cp5.addToggle("stroked").setValue(stroked).setPosition(60, 50).setLabel("Stroke");
 
   colorMode(HSB, 360, 100, 100);
 }
@@ -65,5 +66,9 @@ void draw() {
   endShape();
 
   startAngle += TWO_PI;
-  angularVelocity += angularAcceleration;
+  angularVelocity += angularAcceleration;  
+  
+  // Use ImageMagick to convert to a GIF
+  // convert *.png -set delay 3.33 animation.gif
+  if(exportFrames && frameCount<=30*10){saveFrame("frame-####.png");}
 }

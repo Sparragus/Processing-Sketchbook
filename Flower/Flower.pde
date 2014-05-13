@@ -15,16 +15,19 @@ void setup() {
   cp5.addSlider("radius")
     .setRange(1, 500)
       .setPosition(20, 20)
-        .setValue(150);
+        .setValue(150)
+          .setLabel("Flower Radius");
 
   cp5.addSlider("steps")
     .setRange(1, 100)
       .setPosition(20, 40)
-        .setValue(8);
+        .setValue(8)
+          .setLabel("Steps");
   cp5.addSlider("theFrameRate")
     .setRange(1, 100)
       .setPosition(20, 60)
-        .setValue(60);
+        .setValue(60)
+          .setLabel("FrameRate");
 
 
 
@@ -49,4 +52,7 @@ void draw() {
   noStroke();
   ellipse(0, -65, radius, radius);
   popMatrix();
+
+  //  if (frameRate < 30*20)
+  //    saveFrame("frame-####.png");
 }
