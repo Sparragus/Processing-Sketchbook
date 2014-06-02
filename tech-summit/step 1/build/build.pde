@@ -9,16 +9,19 @@
 
 // Real = Adjusted for inflation.
 // Nominal = Not adjusted for inflation.
+
+import processing.pdf.*;
+
 Table data;
 
 boolean CURVED = true;
 
 void setup() {
-	size(800,800);
+	// size(800,800, P2D);
+	size(800,800, PDF, "graph.pdf");
 	background(#FFFFFF);
 
 	createStuff();
-	noLoop();
 }
 
 void createStuff() {
@@ -26,7 +29,7 @@ void createStuff() {
 }
 
 void drawDataShape(Table table, int column, color c) {
-	fill(c);
+	fill(c, 200);
 	noStroke();
 
 	float x,y;
@@ -37,6 +40,7 @@ void drawDataShape(Table table, int column, color c) {
 
 	float minimum = table.getColumnMin(column);
 	float maximum = table.getColumnMax(column);
+
 
 	/* String[] columns = ["Fecha","Residencial","Comercial","Industrial",
 						   "AlumbradoPúblico","Agrícola","Otros","Total","Nota"];
@@ -53,10 +57,10 @@ void drawDataShape(Table table, int column, color c) {
 				x = mappedCost * cos(angle);
 				y = mappedCost * sin(angle);
 				if(CURVED) {
-					curveVertex(x, y);
+				curveVertex(x, y);
 				}
 				else{
-						vertex(x, y);
+					vertex(x, y);
 				}
 
 				angle -= dAngle;
@@ -88,7 +92,7 @@ void drawDataLines(Table table, color c) {
 
 			x = mappedCost * cos(angle);
 			y = mappedCost * sin(angle);
-			line(0,0,x, y);
+			line(0,0,x,y);
 
 			angle -= dAngle;
 		}
@@ -100,11 +104,9 @@ void draw() {
 	drawDataShape(data, 4, #F92772);
 
 	//Precio Real Ajuste Combustible
-	// drawDataShape(data, 2, #A6DA27);
-	//Precio Nominal Ajuste Combustible
-	// drawDataShape(data, 1, #5ED9EF);
+	drawDataShape(data, 2, #5ED9EF);
 
-	
-	// drawDataLines(realData, #333333);
+
+	exit();
 }
 				
