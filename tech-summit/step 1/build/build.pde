@@ -7,7 +7,9 @@
 	Fecha: 2014-06-02
 */
 
-Table data, inflatedData;
+// Real = Adjusted for inflation.
+// Nominal = Not adjusted for inflation.
+Table nominalData, realData;
 
 boolean CURVED = true;
 
@@ -20,8 +22,8 @@ void setup() {
 }
 
 void createStuff() {
-	data = new Table("ajuste-por-combustible.csv");
-	inflatedData = new Table("ajuste-por-combustible-inflacion.csv");
+	nominalData = new Table("ajuste-por-combustible-nominal.csv");
+	realData = new Table("ajuste-por-combustible-real.csv");
 }
 
 void drawDataShape(Table table, color c) {
@@ -92,8 +94,8 @@ void drawDataLines(Table table, color c) {
 }
 
 void draw() {
-	drawDataShape(inflatedData, #AA0000);
-	drawDataShape(data, #5ED9EF);
-	drawDataLines(inflatedData, #333333);
+	drawDataShape(realData, #AA0000);
+	drawDataShape(nominalData, #5ED9EF);
+	drawDataLines(realData, #333333);
 }
 				
