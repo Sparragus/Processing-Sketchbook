@@ -12,4 +12,8 @@ La data fue provista por la Autoridad de Energía Eléctrica de Puerto Rico. Pro
 
 http://aeepr.com/Aeees/estadisticas.asp
 
+## Costo del barril de petroleo
+Se tomo de la Energy Information Agency, la agencia del gobierno federal a cargo de publicar estas estadisticas
+http://www.eia.gov/forecasts/steo/realprices/
+
 
