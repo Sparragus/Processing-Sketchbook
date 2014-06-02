@@ -22,17 +22,10 @@ class Table {
       
       // split the row on the commas
       String[] pieces = split(rows[i], ',');
-      
-      // for (int j = 0; j < pieces.length; ++j) {
-        // pieces[j] = split(pieces[j], "\"")[1];
-      // }
 
       // copy to the table array
       data[rowCount] = pieces;
       rowCount++;
-      
-      // this could be done in one fell swoop via:
-      //data[rowCount++] = split(rows[i], ',');
     }
     // resize the 'data' array as necessary
     data = (String[][]) subset(data, 0, rowCount);
@@ -89,4 +82,26 @@ class Table {
   float getFloat(int rowIndex, int column) {
     return parseFloat(getString(rowIndex, column));
   }  
+
+  float getColumnMin(int column) {
+    float minimum = MAX_FLOAT;
+    float value;
+    for (int i = 1; i < rowCount; ++i) {
+      value = getFloat(i,column);
+      minimum = min(value, minimum);
+    }
+
+    return minimum;
+  }
+  
+  float getColumnMax(int column) {
+    float maximum = MIN_FLOAT;
+    float value;
+    for (int i = 1; i < rowCount; ++i) {
+      value = getFloat(i,column);
+      maximum = max(value, maximum);
+    }
+
+    return maximum;
+  }
 }

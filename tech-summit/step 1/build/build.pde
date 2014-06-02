@@ -9,7 +9,7 @@
 
 // Real = Adjusted for inflation.
 // Nominal = Not adjusted for inflation.
-Table nominalData, realData;
+Table data;
 
 boolean CURVED = true;
 
@@ -22,11 +22,10 @@ void setup() {
 }
 
 void createStuff() {
-	nominalData = new Table("ajuste-por-combustible-nominal.csv");
-	realData = new Table("ajuste-por-combustible-real.csv");
+	data = new Table("ajuste-por-combustible.csv");
 }
 
-void drawDataShape(Table table, color c) {
+void drawDataShape(Table table, int column, color c) {
 	fill(c);
 	noStroke();
 
@@ -35,6 +34,9 @@ void drawDataShape(Table table, color c) {
 	String date;
 	float angle = -HALF_PI;
 	float dAngle = TWO_PI/(table.getRowCount()-1);
+
+	float minimum = table.getColumnMin(column);
+	float maximum = table.getColumnMax(column);
 
 	/* String[] columns = ["Fecha","Residencial","Comercial","Industrial",
 						   "AlumbradoPúblico","Agrícola","Otros","Total","Nota"];
@@ -45,8 +47,8 @@ void drawDataShape(Table table, color c) {
 		beginShape();
 			for (int row = 1; row < table.getRowCount(); ++row) {
 				date = table.getRowName(row);
-				cost = table.getFloat(row, 1);
-				mappedCost = map(cost, 4.7045, 22.9372, 77, 375);
+				cost = table.getFloat(row, column);
+				mappedCost = map(cost, minimum, maximum, 77, 375);
 
 				x = mappedCost * cos(angle);
 				y = mappedCost * sin(angle);
@@ -94,8 +96,15 @@ void drawDataLines(Table table, color c) {
 }
 
 void draw() {
-	drawDataShape(realData, #AA0000);
-	drawDataShape(nominalData, #5ED9EF);
-	drawDataLines(realData, #333333);
+	//Precio Real Barril Petroleo
+	drawDataShape(data, 4, #F92772);
+
+	//Precio Real Ajuste Combustible
+	// drawDataShape(data, 2, #A6DA27);
+	//Precio Nominal Ajuste Combustible
+	// drawDataShape(data, 1, #5ED9EF);
+
+	
+	// drawDataLines(realData, #333333);
 }
 				
