@@ -5,7 +5,7 @@
 
 class Table {
   int rowCount;
-  String[][] data;
+  public String[][] data;
   
   
   Table(String filename) {
@@ -20,14 +20,19 @@ class Table {
         continue;  // skip comment lines
       }
       
-      // split the row on the tabs
+      // split the row on the commas
       String[] pieces = split(rows[i], ',');
+      
+      // for (int j = 0; j < pieces.length; ++j) {
+        // pieces[j] = split(pieces[j], "\"")[1];
+      // }
+
       // copy to the table array
       data[rowCount] = pieces;
       rowCount++;
       
       // this could be done in one fell swoop via:
-      //data[rowCount++] = split(rows[i], TAB);
+      //data[rowCount++] = split(rows[i], ',');
     }
     // resize the 'data' array as necessary
     data = (String[][]) subset(data, 0, rowCount);
