@@ -15,10 +15,11 @@ import processing.pdf.*;
 Table data;
 
 boolean CURVED = true;
+boolean PDF = false;
 
 void setup() {
-	// size(800,800, P2D);
-	size(800,800, PDF, "graph.pdf");
+
+	if(PDF){size(800,800, P2D);} else{ size(800,800, PDF, "graph.pdf") };
 	background(#FFFFFF);
 
 	createStuff();
@@ -106,7 +107,7 @@ void draw() {
 	//Precio Real Ajuste Combustible
 	drawDataShape(data, 2, #5ED9EF);
 
-
+	if(PDF) {
 	exit();
-}
-				
+	}
+}	
