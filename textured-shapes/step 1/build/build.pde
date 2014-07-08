@@ -1,40 +1,50 @@
 PGraphics t;
 PGraphics m;
 
+int counter = 0;
 
 void setup() {
   size(800, 800);
-  background(#FFFFFF);
-
   createStuff();
 
-  noLoop();
+  // noLoop();
 }
 void createStuff() {
   t = createGraphics(width,height);
   m = createGraphics(width,height);
+}
 
-  t.beginDraw();
-  t.background(#BADA55);
-  t.noFill();
-  t.stroke(#DABA55);
-  t.strokeWeight(25);
-  for (int x = 50; x < t.width*2; x+=50) {
-    t.line(x,0,0,x); 
+void updateTexture(PGraphics _texture) {
+  _texture.beginDraw();
+  _texture.background(#BADA55);
+  _texture.noFill();
+  _texture.stroke(#DABA55);
+  _texture.strokeWeight(25);
+  for (int x = counter%50; x < _texture.width*2; x+=50) {
+    _texture.line(x,0,0,x); 
   }
-  t.endDraw();
+  _texture.endDraw();
+}
 
-  m.beginDraw();
-  m.background(#000000);
-  m.noStroke();
-  m.fill(#FFFFFF);
-  m.ellipse(m.width/2, m.height/2, width/2, height/2);
-  m.endDraw();
+void updateMask(PGraphics _mask) {
+  _mask.beginDraw();
+  _mask.smooth();
+  _mask.background(#000000);
+  // _mask.noStroke();
+  _mask.fill(#FFFFFF);
+  _mask.ellipse(_mask.width/2, _mask.height/2, _mask.width/2*sin(radians(counter)), _mask.height/2*sin(radians(counter)));
+  _mask.endDraw();
 }
 
 void draw() {
+  background(#FFFFFF);
+
+  updateTexture(t);
+  updateMask(m);
   PGraphics pg = applyMaskToTexture(t,m);
   image(pg,0,0);
+
+  counter++;
 }
 				
 PGraphics applyMaskToTexture(PGraphics _texture, PGraphics _mask){
